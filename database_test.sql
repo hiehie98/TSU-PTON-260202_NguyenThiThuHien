@@ -176,11 +176,11 @@ HAVING COUNT(t.ticket_id) > 10;
 -- 12.Lấy danh sách hành khách 
 -- có tổng tiền giao dịch > 2.000.000 VNĐ, 
 -- gồm: mã HK, họ tên, mã tàu, tổng tiền.
-SELECT p.passenger_id, p.passenger_full_name, SUM(pt.amount) AS sum_amount
+SELECT p.passenger_id, p.passenger_full_name, t.train_id, SUM(pt.amount) AS sum_amount
 FROM passengers AS p
 INNER JOIN tickets AS t ON t.passenger_id = p.passenger_id
 INNER JOIN payment_transactions AS pt ON t.ticket_id = pt.ticket_id
-GROUP BY t.passenger_id
+GROUP BY p.passenger_id, p.passenger_full_name, t.train_id
 HAVING SUM(pt.amount) > 2000000;
 
 -- 13.Lấy danh sách hành khách có tên chứa chữ "Hoàng" 
